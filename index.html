@@ -1,134 +1,130 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>AR Kisah Nabi-Nabi</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-      }
-      .playButton {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 20px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        z-index: 1000;
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <!-- === Marker Nabi Musa === -->
-      <a-marker type="pattern" url="pattern-kapallau.patt" id="Musa-marker">
-        <a-entity id="Musa-ship" gltf-model="url(Tongkat.glb)" scale="0.25 0.25 0.25" position="-1.2 -3 -0.3" visible="false"></a-entity>
+<head>
+  <meta charset="utf-8">
+  <title>AR Kisah Nabi Musa</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    #playButton {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      z-index: 1000;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-marker type="pattern" url="NabiMusa/TongkatNabiMusa.patt" id="musa-marker">
+      <a-entity 
+        id="ship-model"
+        gltf-model="url(NabiMusa/Tongkat.glb)"
+        scale="0.3 0.3 0.3"
+        position="0 0 0.5"
+        visible="false">
+      </a-entity>
 
-        <!-- Cards Nabi Musa -->
-        <a-entity id="Musa-first-card" visible="false">
-          <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
-            animation="property: opacity; to: 0.9; dur: 1000; startEvents: fade-in"></a-plane>
-          <a-text value="Nabi Musa a.s.\nSalah satu Nabi Ulul Azmi" align="center" color="#ffffff"
-            position="0 0.4 0.61" scale="0.4 0.4 0.4" opacity="0"
-            animation="property: opacity; to: 1; dur: 1500; startEvents: fade-in"></a-text>
-        </a-entity>
+      <a-entity id="first-card" visible="false">
+        <a-plane position="0 0.9 0" rotation="-90 0 0" width="1.2" height="0.4" color="#ff0000" opacity="0"
+          animation="property: opacity; to: 0.9; dur: 1000; startEvents: fade-in"></a-plane>
+        <a-text value="Nabi Musa a.s.\nSalah satu Nabi Ulul Azmi" align="center" color="#ffffff"
+          position="0 0.901 0.01" rotation="-90 0 0" scale="0.4 0.4 0.4" opacity="0"
+          animation="property: opacity; to: 1; dur: 1500; startEvents: fade-in"></a-text>
+      </a-entity>
 
-        <a-entity id="Musa-second-card" visible="false">
-          <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
-            animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-second"></a-plane>
-          <a-text value="Gambar hanya ilustrasi" align="center" color="#ffffff"
-            position="0 0.4 0.61" scale="0.4 0.4 0.4" opacity="0"
-            animation="property: opacity; to: 1; dur: 1500; startEvents: show-second"></a-text>
-        </a-entity>
+      <a-entity id="second-card" visible="false">
+        <a-plane position="0 0.9 0" rotation="-90 0 0" width="1.2" height="0.4" color="#ff0000" opacity="0"
+          animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-second"></a-plane>
+        <a-text value="Gambar hanya ilustrasi" align="center" color="#ffffff"
+          position="0 0.901 0.01" rotation="-90 0 0" scale="0.4 0.4 0.4" opacity="0"
+          animation="property: opacity; to: 1; dur: 1500; startEvents: show-second"></a-text>
+      </a-entity>
 
-        <a-entity id="Musa-story-card" visible="false">
-          <a-plane position="0 0.4 0.6" width="1.8" height="1.2" color="#333333" opacity="0"
-            animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-story"></a-plane>
-          <a-text value="Kisah Nabi Musa" align="center" color="#ffffff"
-            position="0 0.9 0.61" width="2.5" opacity="0"
-            animation="property: opacity; to: 1; dur: 1500; startEvents: show-story"></a-text>
-          <a-text value="Nabi Musa lahir di Mesir saat pemerintahan Fir’aun yang zalim, yang memerintahkan pembunuhan bayi laki-laki Bani Israil. Dilempar ke Sungai Nil namun diselamatkan oleh istri Fir’aun, Musa dibesarkan di istana. Saat dewasa, ia membunuh seorang penjaga Mesir dan melarikan diri ke Madyan, menikahi putri Nabi Syuaib. Allah memanggilnya di Gunung Thur, memberikan mukjizat seperti tongkat yang berubah menjadi ular besar dan membelah Laut Merah. Musa membawa Bani Israil keluar dari Mesir, menerima Taurat di Gunung Sinai, tetapi mereka membuat patung anak sapi. Meski tidak memasuki Tanah Suci, Musa membimbing mereka hingga akhir hayatnya."
-            align="center" color="#ffffff" position="0 0.4 0.61" width="2" wrap-count="30"
-            opacity="0" scale="0.7 0.7 0.7"
-            animation="property: opacity; to: 1; dur: 2000; startEvents: show-story; delay: 500"></a-text>
-        </a-entity>
-      </a-marker>
+      <a-entity id="story-card" visible="false">
+        <a-plane position="0 1.3 0" rotation="-90 0 0" width="1.8" height="1.2" color="#333333" opacity="0"
+          animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-story"></a-plane>
+        <a-text value="Kisah Nabi Musa" align="center" color="#ffffff"
+          position="0 1.8 0.01" rotation="-90 0 0" width="2.5" opacity="0"
+          animation="property: opacity; to: 1; dur: 1500; startEvents: show-story"></a-text>
+        <a-text value="Nabi Musa lahir di Mesir saat pemerintahan Fir’aun yang zalim, yang memerintahkan pembunuhan bayi laki-laki Bani Israil. Dilempar ke Sungai Nil namun diselamatkan oleh istri Fir’aun, Musa dibesarkan di istana. Saat dewasa, ia membunuh seorang penjaga Mesir dan melarikan diri ke Madyan, menikahi putri Nabi Syuaib. Allah memanggilnya di Gunung Thur, memberikan mukjizat seperti tongkat yang berubah menjadi ular besar dan membelah Laut Merah. Musa membawa Bani Israil keluar dari Mesir, menerima Taurat di Gunung Sinai, tetapi mereka membuat patung anak sapi. Meski tidak memasuki Tanah Suci, Musa membimbing mereka hingga akhir hayatnya."
+          align="center" color="#ffffff" position="0 1.3 0.01" rotation="-90 0 0"
+          width="2" wrap-count="30" scale="0.7 0.7 0.7" opacity="0"
+          animation="property: opacity; to: 1; dur: 2000; startEvents: show-story; delay: 500"></a-text>
+      </a-entity>
+    </a-marker>
 
-      <!-- Assets -->
-      <a-assets>
-        <audio id="narasi-Musa" src="KisahNabiMusa.mp3" preload="auto"></audio>
-      </a-assets>
+    <a-assets>
+      <audio id="narasi" src="pesanSuara.mp3" preload="auto"></audio>
+    </a-assets>
 
-      <a-entity camera></a-entity>
-    </a-scene>
+    <a-entity camera></a-entity>
+  </a-scene>
 
-    <button id="play-Musa" class="playButton">Putar Narasi Nabi Musa</button>
+  <button id="playButton">Putar Narasi</button>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-  const resetVisibility = () => {
-    document.querySelectorAll("[opacity]").forEach(el => {
-      el.setAttribute("opacity", "0");
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const marker = document.getElementById('musa-marker'); // sesuai id di a-marker
+      const shipModel = document.getElementById('ship-model');
+      const firstCard = document.getElementById('first-card');
+      const secondCard = document.getElementById('second-card');
+      const storyCard = document.getElementById('story-card');
+      const playButton = document.getElementById('playButton');
+      const narasiAudio = document.getElementById('narasi');
+
+      marker.addEventListener('markerFound', function () {
+        shipModel.setAttribute('visible', 'true');
+        firstCard.setAttribute('visible', 'true');
+        firstCard.querySelector('a-plane').emit('fade-in');
+        firstCard.querySelector('a-text').emit('fade-in');
+
+        setTimeout(() => {
+          firstCard.setAttribute('visible', false);
+          secondCard.setAttribute('visible', true);
+          secondCard.querySelector('a-plane').emit('show-second');
+          secondCard.querySelector('a-text').emit('show-second');
+
+          setTimeout(() => {
+            secondCard.setAttribute('visible', false);
+            storyCard.setAttribute('visible', true);
+            storyCard.querySelector('a-plane').emit('show-story');
+            storyCard.querySelectorAll('a-text').forEach(el => el.emit('show-story'));
+            playButton.style.display = 'block';
+            playButton.onclick = () => {
+              narasiAudio.play();
+              playButton.style.display = 'none';
+            };
+            narasiAudio.play().catch(() => {
+              console.log('Autoplay blocked, manual play needed');
+            });
+          }, 3000);
+        }, 3000);
+      });
+
+      marker.addEventListener('markerLost', function () {
+        shipModel.setAttribute('visible', 'false');
+        firstCard.setAttribute('visible', 'false');
+        secondCard.setAttribute('visible', 'false');
+        storyCard.setAttribute('visible', 'false');
+        playButton.style.display = 'none';
+        narasiAudio.pause();
+        narasiAudio.currentTime = 0;
+        document.querySelectorAll('[opacity]').forEach(el => el.setAttribute('opacity', '0'));
+      });
     });
-  };
-  // HAPUS baris ini (tidak perlu, membuat bingung):
-  // const nuhMarker = document.getElementById("Musa-marker");
-
-  // Ganti ini agar sesuai
-  const playMusaBtn = document.getElementById("play-Musa");
-  const audioMusa = document.getElementById("narasi-Musa");
-
-  const musaMarker = document.getElementById("Musa-marker");
-  musaMarker.addEventListener("markerFound", () => {
-    document.getElementById("Musa-ship").setAttribute("visible", "true");
-    const first = document.getElementById("Musa-first-card");
-    const second = document.getElementById("Musa-second-card");
-    const story = document.getElementById("Musa-story-card");
-
-    first.setAttribute("visible", true);
-    first.querySelector("a-plane").emit("fade-in");
-    first.querySelector("a-text").emit("fade-in");
-
-    setTimeout(() => {
-      first.setAttribute("visible", false);
-      second.setAttribute("visible", true);
-      second.querySelector("a-plane").emit("show-second");
-      second.querySelector("a-text").emit("show-second");
-
-      setTimeout(() => {
-        second.setAttribute("visible", false);
-        story.setAttribute("visible", true);
-        story.querySelector("a-plane").emit("show-story");
-        story.querySelectorAll("a-text").forEach(el => el.emit("show-story"));
-
-        playMusaBtn.style.display = "block";
-        playMusaBtn.onclick = () => {
-          audioMusa.play();
-          playMusaBtn.style.display = "none";
-        };
-        audioMusa.play().catch(() => {});
-      }, 3000);
-    }, 3000);
-  });
-
-  musaMarker.addEventListener("markerLost", () => {
-    ["Musa-ship", "Musa-first-card", "Musa-second-card", "Musa-story-card"].forEach(id => {
-      document.getElementById(id).setAttribute("visible", false);
-    });
-    playMusaBtn.style.display = "none";
-    audioMusa.pause();
-    audioMusa.currentTime = 0;
-    resetVisibility();
-  });
-});
-    </script>
-  </body>
+  </script>
+</body>
 </html>
