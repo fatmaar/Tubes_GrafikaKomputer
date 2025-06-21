@@ -74,58 +74,61 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const resetVisibility = () => {
-          document.querySelectorAll("[opacity]").forEach(el => {
-            el.setAttribute("opacity", "0");
-          });
+  const resetVisibility = () => {
+    document.querySelectorAll("[opacity]").forEach(el => {
+      el.setAttribute("opacity", "0");
+    });
+  };
+  // HAPUS baris ini (tidak perlu, membuat bingung):
+  // const nuhMarker = document.getElementById("Musa-marker");
+
+  // Ganti ini agar sesuai
+  const playMusaBtn = document.getElementById("play-Musa");
+  const audioMusa = document.getElementById("narasi-Musa");
+
+  const musaMarker = document.getElementById("Musa-marker");
+  musaMarker.addEventListener("markerFound", () => {
+    document.getElementById("Musa-ship").setAttribute("visible", "true");
+    const first = document.getElementById("Musa-first-card");
+    const second = document.getElementById("Musa-second-card");
+    const story = document.getElementById("Musa-story-card");
+
+    first.setAttribute("visible", true);
+    first.querySelector("a-plane").emit("fade-in");
+    first.querySelector("a-text").emit("fade-in");
+
+    setTimeout(() => {
+      first.setAttribute("visible", false);
+      second.setAttribute("visible", true);
+      second.querySelector("a-plane").emit("show-second");
+      second.querySelector("a-text").emit("show-second");
+
+      setTimeout(() => {
+        second.setAttribute("visible", false);
+        story.setAttribute("visible", true);
+        story.querySelector("a-plane").emit("show-story");
+        story.querySelectorAll("a-text").forEach(el => el.emit("show-story"));
+
+        playMusaBtn.style.display = "block";
+        playMusaBtn.onclick = () => {
+          audioMusa.play();
+          playMusaBtn.style.display = "none";
         };
-        const nuhMarker = document.getElementById("Musa-marker");
-        const playNuhBtn = document.getElementById("play-Musa");
-        const audioNuh = document.getElementById("narasi-Musa");
+        audioMusa.play().catch(() => {});
+      }, 3000);
+    }, 3000);
+  });
 
-        const musaMarker = document.getElementById("Musa-marker");
-        musaMarker.addEventListener("markerFound", () => {
-          document.getElementById("Musa-ship").setAttribute("visible", "true");
-          const first = document.getElementById("Musa-first-card");
-          const second = document.getElementById("Musa-second-card");
-          const story = document.getElementById("Musa-story-card");
-
-          first.setAttribute("visible", true);
-          first.querySelector("a-plane").emit("fade-in");
-          first.querySelector("a-text").emit("fade-in");
-
-          setTimeout(() => {
-            first.setAttribute("visible", false);
-            second.setAttribute("visible", true);
-            second.querySelector("a-plane").emit("show-second");
-            second.querySelector("a-text").emit("show-second");
-
-            setTimeout(() => {
-              second.setAttribute("visible", false);
-              story.setAttribute("visible", true);
-              story.querySelector("a-plane").emit("show-story");
-              story.querySelectorAll("a-text").forEach(el => el.emit("show-story"));
-
-              playNuhBtn.style.display = "block";
-              playNuhBtn.onclick = () => {
-                audioNuh.play();
-                playNuhBtn.style.display = "none";
-              };
-              audioNuh.play().catch(() => {});
-            }, 3000);
-          }, 3000);
-        });
-
-        musaMarker.addEventListener("markerLost", () => {
-          ["Musa-ship", "Musa-first-card", "Musa-second-card", "Musa-story-card"].forEach(id => {
-            document.getElementById(id).setAttribute("visible", false);
-          });
-          playNuhBtn.style.display = "none";
-          audioNuh.pause();
-          audioNuh.currentTime = 0;
-          resetVisibility();
-        });
-      });
+  musaMarker.addEventListener("markerLost", () => {
+    ["Musa-ship", "Musa-first-card", "Musa-second-card", "Musa-story-card"].forEach(id => {
+      document.getElementById(id).setAttribute("visible", false);
+    });
+    playMusaBtn.style.display = "none";
+    audioMusa.pause();
+    audioMusa.currentTime = 0;
+    resetVisibility();
+  });
+});
     </script>
   </body>
 </html>
